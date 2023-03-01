@@ -64,19 +64,44 @@ def _merged(xs, ys, cmp=cmp_standard):
 
     NOTE:
     In python, helper functions are frequently prepended with the _.
-    This is a signal to users of a library that these functions are for "internal use only",
+    This is a signal to users of a library that these functions are for
+    "internal use only",
     and not part of the "public interface".
 
-    This _merged function could be implemented as a local function within the merge_sorted scope rather than a global function.
+    This _merged function could be implemented as a local function within
+    the merge_sorted scope rather than a global function.
     The downside of this is that the function can then not be tested on its own.
-    Typically, you should only implement a function as a local function if it cannot function on its own
+    Typically, you should only implement a function as a local function
+    if it cannot function on its own
     (like the go functions from binary search).
     If it's possible to make a function stand-alone,
-    then you probably should do that and write test cases for the stand-alone function.
+    then you probably should do that and write test cases for
+    the stand-alone function.
 
     >>> _merged([1, 3, 5], [2, 4, 6])
     [1, 2, 3, 4, 5, 6]
     '''
+    xs_ind = 0
+    ys_ind = 0
+    final = []
+
+    while xs_ind < len(xs) and ys_ind < len(ys):
+        if cmp(xs[xs_ind], ys[ys_ind]) == -1:
+            final.append(xs[xs_ind]}
+            xs_ind += 1
+        else:
+            final.append(ys[ys_ind])
+            ys_ind += 1
+
+    while xs_ind < len(xs):
+        final.append(xs[xs_ind])
+        xs_ind += 1
+
+    while ys_ind < len(ys):
+        final.append(ys[ys_ind])
+        ys_ind += 1
+
+    return final
 
 
 def merge_sorted(xs, cmp=cmp_standard):
@@ -95,6 +120,15 @@ def merge_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    if len(xs) <= 1:
+        return xs
+    else:
+        mid = len(xs) // 2
+        left = xs[:mid]
+        right = xs[mid:]
+        first = merge_sorted(left, cmp = cmp)
+        second = merge_sorted(right, cmp = cmp)
+        return _merged(first, second, cmp)
 
 
 def quick_sorted(xs, cmp=cmp_standard):
