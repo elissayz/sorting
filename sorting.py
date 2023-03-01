@@ -4,13 +4,13 @@ Python provides built-in sort/sorted functions that use timsort internally.
 You cannot use these built-in functions anywhere in this file.
 
 Every function in this file takes a comparator `cmp` as input
-which controls how the elements of the list should be compared against each other:
+which controls how the elements of the list should be compared against each
+other:
 If cmp(a, b) returns -1, then a < b;
 if cmp(a, b) returns  1, then a > b;
 if cmp(a, b) returns  0, then a == b.
 '''
 
-import random
 
 def cmp_standard(a, b):
     '''
@@ -70,7 +70,8 @@ def _merged(xs, ys, cmp=cmp_standard):
 
     This _merged function could be implemented as a local function within
     the merge_sorted scope rather than a global function.
-    The downside of this is that the function can then not be tested on its own.
+    The downside of this is that the function can then not be tested on its
+    own.
     Typically, you should only implement a function as a local function
     if it cannot function on its own
     (like the go functions from binary search).
@@ -87,7 +88,7 @@ def _merged(xs, ys, cmp=cmp_standard):
 
     while xs_ind < len(xs) and ys_ind < len(ys):
         if cmp(xs[xs_ind], ys[ys_ind]) == -1:
-            final.append(xs[xs_ind]}
+            final.append(xs[xs_ind])
             xs_ind += 1
         else:
             final.append(ys[ys_ind])
@@ -126,8 +127,8 @@ def merge_sorted(xs, cmp=cmp_standard):
         mid = len(xs) // 2
         left = xs[:mid]
         right = xs[mid:]
-        first = merge_sorted(left, cmp = cmp)
-        second = merge_sorted(right, cmp = cmp)
+        first = merge_sorted(left, cmp=cmp)
+        second = merge_sorted(right, cmp=cmp)
         return _merged(first, second, cmp)
 
 
@@ -136,8 +137,9 @@ def quick_sorted(xs, cmp=cmp_standard):
     Quicksort is like mergesort,
     but it uses a different strategy to split the list.
     Instead of splitting the list down the middle,
-    a "pivot" value is randomly selected, 
-    and the list is split into a "less than" sublist and a "greater than" sublist.
+    a "pivot" value is randomly selected,
+    and the list is split into a "less than" sublist and a
+    "greater than" sublist.
 
     The pseudocode is:
 
@@ -162,16 +164,22 @@ def quick_sort(xs, cmp=cmp_standard):
     The main advantage of quick_sort is that it can be implemented "in-place".
     This means that no extra lists are allocated,
     or that the algorithm uses Theta(1) additional memory.
-    Merge sort, on the other hand, must allocate intermediate lists for the merge step,
+    Merge sort, on the other hand, must allocate intermediate lists for the
+    merge step,
     and has a Theta(n) memory requirement.
-    Even though quick sort and merge sort both have the same Theta(n log n) runtime,
-    this more efficient memory usage typically makes quick sort faster in practice.
+    Even though quick sort and merge sort both have the same Theta(n log n)
+    runtime,
+    this more efficient memory usage typically makes quick sort faster in
+    practice.
     (We say quick sort has a lower "constant factor" in its runtime.)
-    The downside of implementing quick sort in this way is that it will no longer be a [stable sort](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability),
+    The downside of implementing quick sort in this way is that it will no
+    longer be a [stable sort](https://en.wikipedia.org/wiki/Sorting_algorithm#
+    Stability),
     but this is typically inconsequential.
 
     Follow the pseudocode of the Lomuto partition scheme given on wikipedia
     (https://en.wikipedia.org/wiki/Quicksort#Algorithm)
     to implement quick_sort as an in-place algorithm.
-    You should directly modify the input xs variable instead of returning a copy of the list.
+    You should directly modify the input xs variable instead of returning a
+    copy of the list.
     '''
