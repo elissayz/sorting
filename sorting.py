@@ -156,6 +156,17 @@ def quick_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    if len(xs) <= 1:
+        return xs
+    else:
+        mid = len(xs) // 2
+        pivot = xs[mid]
+        xs_sm = [x for x in xs if cmp(x, pivot) == -1]
+        xs_bg = [x for x in xs if cmp(x, pivot) == 1]
+        xs_equal = [x for x in xs if x == pivot]
+        xs_smaller = quick_sorted(xs_sm, cmp=cmp)
+        xs_bigger = quick_sorted(xs_bg, cmp=cmp)
+        return xs_smaller + xs_equal + xs_bigger
 
 
 def quick_sort(xs, cmp=cmp_standard):
